@@ -1,20 +1,19 @@
 public class Main{
 
 	public static void main(String[] args){
-		System.out.println("Ok!");
 		try{
-			Horario h = new Horario(0,0,0);
+			Horario h = new Horario(13,15,58);
 			System.out.println("Horário inicial: " + h);	
-			h.setHoras(0);
-			h.setMinutos(0);
-			h.setSegundos(0);
-			System.out.println("Horário modificado: " + h);
 			System.out.println("Horas: " + h.getHoras());
 			System.out.println("Minutos: " + h.getMinutos());
 			System.out.println("Segundos: " + h.getSegundos());
-			h.adiante(3600 * 4);
+			h.setHoras(6);
+			h.setMinutos(30);
+			h.setSegundos(5);
+			System.out.println("Horário modificado: " + h);
+			h.adiante(3600*5 + 1800 - 5);
 			System.out.println("Horário adiantado: " + h);
-			h.atrase(3600 * 3);
+			h.atrase(400000);
 			System.out.println("Horário atrasado: " + h);		
 		}catch(Exception erro){
 			System.out.println("Erro ao criar horário: " + erro.getMessage());
