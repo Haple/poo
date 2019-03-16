@@ -1,8 +1,10 @@
 package br.edu.puccampinas.horario;
 
 import java.util.logging.Logger;
+
 /**
  * Suíte de testes da classe Horário
+ * 
  * @author aleph
  *
  */
@@ -11,8 +13,9 @@ public class HorarioTest {
 
   /**
    * Driver para iniciar suíte de testes
+   * 
    * @param args
-   * @throws Exception 
+   * @throws Exception
    */
   public static void main(String[] args) throws Exception {
     deve_impedir_horas_invalidas();
@@ -22,6 +25,7 @@ public class HorarioTest {
     deve_atrasar_horario();
     deve_modificar_horario();
     deve_transformar_segundos_em_horario();
+    deve_comparar_dois_horarios_iguais();
   }
 
   private static void deve_impedir_horas_invalidas() throws Exception {
@@ -32,7 +36,7 @@ public class HorarioTest {
       LOGGER.info("Horas inválidas foram tratadas com sucesso.");
     }
   }
-  
+
   private static void deve_impedir_minutos_invalidos() throws Exception {
     try {
       Horario h = new Horario(23, 10000, 58);
@@ -41,7 +45,7 @@ public class HorarioTest {
       LOGGER.info("Minutos inválidos foram tratados com sucesso.");
     }
   }
-  
+
   private static void deve_impedir_segundos_invalidos() throws Exception {
     try {
       Horario h = new Horario(23, 15, 10000);
@@ -52,7 +56,7 @@ public class HorarioTest {
   }
 
   private static void deve_adiar_horario() throws Exception {
-    Horario h = new Horario(6,30,5);
+    Horario h = new Horario(6, 30, 5);
     h.adiante(3600 * 5 + 1800 - 5);
     if (h.getHoras() == 12 && h.getMinutos() == 0 && h.getSegundos() == 0) {
       LOGGER.info("Horário adiantado com sucesso.");
@@ -60,9 +64,9 @@ public class HorarioTest {
     }
     throw new Exception("O horário não foi adiantado corretamente: " + h);
   }
-  
+
   private static void deve_atrasar_horario() throws Exception {
-    Horario h = new Horario(12,0,0);
+    Horario h = new Horario(12, 0, 0);
     h.atrase(400000);
     if (h.getHoras() == 3 && h.getMinutos() == 6 && h.getSegundos() == 40) {
       LOGGER.info("Horário atrasado com sucesso.");
@@ -70,7 +74,7 @@ public class HorarioTest {
     }
     throw new Exception("O horário não foi atrasado corretamente: " + h);
   }
-  
+
   private static void deve_modificar_horario() throws Exception {
     Horario h = new Horario(13, 15, 58);
     h.setHoras(23);
@@ -82,13 +86,23 @@ public class HorarioTest {
     }
     throw new Exception("O horário não foi modificado corretamente: " + h);
   }
-  
+
   private static void deve_transformar_segundos_em_horario() throws Exception {
-    Horario h = Horario.segundosEmHorario((86400*3)-1);
+    Horario h = Horario.segundosEmHorario((86400 * 3) - 1);
     if (h.getHoras() == 23 && h.getMinutos() == 59 && h.getSegundos() == 59) {
       LOGGER.info("Horário transformado com sucesso.");
       return;
     }
     throw new Exception("O horário não foi transformado com sucesso: " + h);
+  }
+
+  private static void deve_comparar_dois_horarios_iguais() throws Exception {
+    Horario h1 = new Horario(23, 56, 57);
+    Horario h2 = new Horario(23, 56, 57);
+    if (h1.equals(h2)) {
+      LOGGER.info("Os horários foram comparados com sucesso.");
+      return;
+    }
+    throw new Exception("Os horários não foram comparados corretamente:  " + h1 + " e " + h2);
   }
 }

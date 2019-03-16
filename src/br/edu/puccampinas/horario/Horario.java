@@ -142,7 +142,35 @@ public class Horario {
     // this.horas = this.horas < 0 ? 24 + this.horas : this.horas;
   }
 
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + horas;
+    result = prime * result + minutos;
+    result = prime * result + segundos;
+    return result;
+  }
 
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Horario other = (Horario) obj;
+    if (horas != other.horas)
+      return false;
+    if (minutos != other.minutos)
+      return false;
+    if (segundos != other.segundos)
+      return false;
+    return true;
+  }
+
+  @Override
   public String toString() {
     return (horas < 10 ? "0" + horas : horas) + ":" + (minutos < 10 ? "0" + minutos : minutos) + ":"
         + (segundos < 10 ? "0" + segundos : segundos);
