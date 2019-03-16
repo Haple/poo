@@ -2,7 +2,7 @@
 !.mvn/wrapper/maven-wrapper.jar
 
 bin
-.class
+*.class
 
 ### STS ###
 .apt_generated
