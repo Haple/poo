@@ -4,6 +4,15 @@ public class Horario {
 
   private int horas, minutos, segundos;
 
+  /**
+   * Constrói um horário baseado nas horas, minutos e segundos específicados, fazendo as devidas
+   * validações.
+   * 
+   * @param horas Horas a serem validadas - de 0 até 23
+   * @param minutos Minutos a serem validados - de 0 até 59
+   * @param segundos Segundos a serem validados - de 0 até 59
+   * @throws Exception Caso alguma parte do horário esteja fora da faixa permitida
+   */
   public Horario(int horas, int minutos, int segundos) throws Exception {
     valida(horas, minutos, segundos);
     this.horas = horas;
@@ -11,8 +20,16 @@ public class Horario {
     this.segundos = segundos;
   }
 
+  /**
+   * Verifica se um horário é válido
+   * 
+   * @param horas Horas a serem validadas - de 0 até 23
+   * @param minutos Minutos a serem validados - de 0 até 59
+   * @param segundos Segundos a serem validados - de 0 até 59
+   * @throws Exception Caso alguma parte do horário esteja fora da faixa permitida
+   */
   private void valida(int horas, int minutos, int segundos) throws Exception {
-    if (horas < 0 || horas > 24) {
+    if (horas < 0 || horas > 23) {
       throw new Exception("Hora \"" + horas + "\" é inválida!");
     }
     if (minutos < 0 || minutos > 59) {
@@ -54,17 +71,32 @@ public class Horario {
     return this.segundos + (this.minutos * 60) + (this.horas * 3600);
   }
 
+  /**
+   * Transforma uma quantidade de segundos em um horário equivalente
+   * 
+   * @param qtdSegundos Segundos a serem transformados. Observe que caso os segundos ultrapassem o
+   *        equivalente a 86400 segundos, será criado um horário baseado-se na exclusão dos períodos
+   *        de 24 horas
+   * @return Devolve o horário que a quantidade de segundos representa
+   * @throws Exception Caso a quantidade de segundos seja negativa
+   */
   public static Horario segundosEmHorario(int qtdSegundos) throws Exception {
     if (qtdSegundos < 0) {
       throw new Exception("Quantidade de segundos inválida!");
     }
     int seg, min, h;
-	seg = qtdSegundos%60;
-	min = (qtdSegundos/60)%60;
-	h = (qtdSegundos/3600)%24;
+    seg = qtdSegundos % 60;
+    min = (qtdSegundos / 60) % 60;
+    h = (qtdSegundos / 3600) % 24;
     return new Horario(h, min, seg);
   }
 
+  /**
+   * Adianta o horário na quantidade de segundos especificada
+   * 
+   * @param qtdSegundos Quantidade de segundos a adiantar
+   * @throws Exception Caso a quantidade de segundos seja negativa
+   */
   public void adiante(int qtdSegundos) throws Exception {
     if (qtdSegundos < 0) {
       throw new Exception("Quantidade de segundos inválida!");
@@ -82,11 +114,17 @@ public class Horario {
     // this.horas %= 24;
   }
 
+  /**
+   * Atrasa o horário na quantidade de segundos especificada
+   * 
+   * @param qtdSegundos Quantidade de segundos a atrasar
+   * @throws Exception Caso a quantidade de segundos seja negativa
+   */
   public void atrase(int qtdSegundos) throws Exception {
     if (qtdSegundos < 0) {
       throw new Exception("Quantidade de segundos inválida!");
     }
-    int dia = 86400;
+    final int dia = 86400;
     int atraso = this.emSegundos() - (qtdSegundos % dia);
     atraso = atraso < 0 ? dia - atraso : atraso;
     Horario h = segundosEmHorario(atraso);
@@ -106,11 +144,8 @@ public class Horario {
 
 
   public String toString() {
-    return (horas < 10 ? "0" + horas : horas) 
-			+ ":" +
-			(minutos < 10 ? "0" + minutos : minutos) 
-			+ ":"+ 
-			(segundos < 10 ? "0" + segundos : segundos);
+    return (horas < 10 ? "0" + horas : horas) + ":" + (minutos < 10 ? "0" + minutos : minutos) + ":"
+        + (segundos < 10 ? "0" + segundos : segundos);
   }
 
 }

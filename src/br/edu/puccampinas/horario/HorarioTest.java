@@ -12,18 +12,16 @@ public class HorarioTest {
   /**
    * Driver para iniciar suíte de testes
    * @param args
+   * @throws Exception 
    */
-  public static void main(String[] args) {
-    try {
-      deve_impedir_horas_invalidas();
-      deve_impedir_minutos_invalidos();
-      deve_impedir_segundos_invalidos();
-      deve_adiar_horario();
-      deve_atrasar_horario();
-      deve_modificar_horario();
-    } catch (Exception erro) {
-      LOGGER.severe(erro.getMessage());
-    }
+  public static void main(String[] args) throws Exception {
+    deve_impedir_horas_invalidas();
+    deve_impedir_minutos_invalidos();
+    deve_impedir_segundos_invalidos();
+    deve_adiar_horario();
+    deve_atrasar_horario();
+    deve_modificar_horario();
+    deve_transformar_segundos_em_horario();
   }
 
   private static void deve_impedir_horas_invalidas() throws Exception {
@@ -83,5 +81,14 @@ public class HorarioTest {
       return;
     }
     throw new Exception("O horário não foi modificado corretamente: " + h);
+  }
+  
+  private static void deve_transformar_segundos_em_horario() throws Exception {
+    Horario h = Horario.segundosEmHorario((86400*3)-1);
+    if (h.getHoras() == 23 && h.getMinutos() == 59 && h.getSegundos() == 59) {
+      LOGGER.info("Horário transformado com sucesso.");
+      return;
+    }
+    throw new Exception("O horário não foi transformado com sucesso: " + h);
   }
 }
