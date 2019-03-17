@@ -67,6 +67,11 @@ public class Horario {
     this.segundos = segundos;
   }
 
+  /**
+   * Obtem a representação equivalente do horário atual em segundos.
+   * 
+   * @return Devolve a quantidade de segundos equivalente ao horário atual.
+   */
   private int emSegundos() {
     return this.segundos + (this.minutos * 60) + (this.horas * 3600);
   }
