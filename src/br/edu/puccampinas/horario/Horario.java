@@ -87,7 +87,7 @@ public class Horario {
    */
   public static Horario segundosEmHorario(int qtdSegundos) throws Exception {
     if (qtdSegundos < 0) {
-      throw new Exception("Quantidade de segundos inválida!");
+      throw new Exception("Não é possível transformar segundos negativos em um horário!");
     }
     int seg, min, h;
     seg = qtdSegundos % 60;
@@ -110,13 +110,6 @@ public class Horario {
     this.horas = h.getHoras();
     this.minutos = h.getMinutos();
     this.segundos = h.getSegundos();
-    // Implementação procedural
-    // this.segundos += qtdSegundos;
-    // this.minutos += this.segundos/60;
-    // this.segundos %= 60;
-    // this.horas += this.minutos/60;
-    // this.minutos %= 60;
-    // this.horas %= 24;
   }
 
   /**
@@ -131,20 +124,11 @@ public class Horario {
     }
     final int dia = 86400;
     int atraso = this.emSegundos() - (qtdSegundos % dia);
-    atraso = atraso < 0 ? dia - atraso : atraso;
+    atraso = atraso < 0 ? dia + atraso : atraso;
     Horario h = segundosEmHorario(atraso);
     this.horas = h.getHoras();
     this.minutos = h.getMinutos();
     this.segundos = h.getSegundos();
-    // Implementação procedural
-    // this.segundos -= qtdSegundos%60;
-    // this.segundos = this.segundos < 0 ? 60 + this.segundos : this.segundos;
-    // this.minutos -= (this.segundos + qtdSegundos)/60;
-    // this.minutos %= 60;
-    // this.minutos = this.minutos < 0 ? 60 + this.minutos : this.minutos;
-    // this.horas -= (this.minutos + ((this.segundos + qtdSegundos)/60))/60;
-    // this.horas %= 24;
-    // this.horas = this.horas < 0 ? 24 + this.horas : this.horas;
   }
 
   @Override

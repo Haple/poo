@@ -56,9 +56,10 @@ public class HorarioTest {
   }
 
   private static void deve_adiar_horario() throws Exception {
-    Horario h = new Horario(6, 30, 5);
-    h.adiante(3600 * 5 + 1800 - 5);
-    if (h.getHoras() == 12 && h.getMinutos() == 0 && h.getSegundos() == 0) {
+    Horario h = new Horario(11, 30, 20);
+    // 60 anos e 60 segundos
+    h.adiante((86400 * 365 * 60) + 60);
+    if (h.getHoras() == 11 && h.getMinutos() == 31 && h.getSegundos() == 20) {
       LOGGER.info("Horário adiantado com sucesso.");
       return;
     }
@@ -66,9 +67,10 @@ public class HorarioTest {
   }
 
   private static void deve_atrasar_horario() throws Exception {
-    Horario h = new Horario(12, 0, 0);
-    h.atrase(400000);
-    if (h.getHoras() == 3 && h.getMinutos() == 6 && h.getSegundos() == 40) {
+    Horario h = new Horario(11, 30, 20);
+    // 60 anos e 60 segundos
+    h.atrase((86400 * 365 * 60) + 60);
+    if (h.getHoras() == 11 && h.getMinutos() == 29 && h.getSegundos() == 20) {
       LOGGER.info("Horário atrasado com sucesso.");
       return;
     }
